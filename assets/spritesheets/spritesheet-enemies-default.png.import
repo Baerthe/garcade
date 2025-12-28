@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bo5wruhheualc"
-path="res://.godot/imported/spritesheet-enemies-default.png-f519bb5f5b0fecad57a557644c0d9e47.ctex"
+path="res://.godot/imported/spritesheet-enemies-default.png-34d2cbeb10707495e3c2e49b7d2fef46.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spritesheets/spritesheet-enemies-default.png"
-dest_files=["res://.godot/imported/spritesheet-enemies-default.png-f519bb5f5b0fecad57a557644c0d9e47.ctex"]
+source_file="res://assets/spritesheets/spritesheet-enemies-default.png"
+dest_files=["res://.godot/imported/spritesheet-enemies-default.png-34d2cbeb10707495e3c2e49b7d2fef46.ctex"]
 
 [params]
 

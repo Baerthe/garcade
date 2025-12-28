@@ -3,12 +3,12 @@
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
 uid="uid://dc4nlr1wqvapk"
-path="res://.godot/imported/sfx_jump-high.ogg-cdcbe1f9d03249629e6ccdca08537e34.oggvorbisstr"
+path="res://.godot/imported/sfx_jump-high.ogg-7edf841af71cd1c63b770577c1fd97cb.oggvorbisstr"
 
 [deps]
 
-source_file="res://Sounds/sfx_jump-high.ogg"
-dest_files=["res://.godot/imported/sfx_jump-high.ogg-cdcbe1f9d03249629e6ccdca08537e34.oggvorbisstr"]
+source_file="res://assets/sounds/sfx_jump-high.ogg"
+dest_files=["res://.godot/imported/sfx_jump-high.ogg-7edf841af71cd1c63b770577c1fd97cb.oggvorbisstr"]
 
 [params]
 
