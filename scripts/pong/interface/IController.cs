@@ -4,5 +4,6 @@ using Godot;
 public interface IController
 {
     Paddle Paddle {get; set;}
-    float GetInputDirection();
+    int GetInputDirection();
+    void Update();
 }

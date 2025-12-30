@@ -1,13 +1,30 @@
 namespace pong;
 
 using Godot;
-public sealed partial class Paddle : Node2D, IPaddle
+public sealed partial class Paddle : CharacterBody2D, IPaddle
 {
+    public byte Speed { get; private set; } = 200;
     public byte Size { get; private set; } = 3;
+    private CollisionShape2D _collisionShape;
     private Vector2 _initialPosition;
-    public void Move(float delta, bool directionUp)
+    public override void _Ready()
     {
-        
+        _collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+    }
+    public override void _PhysicsProcess(double delta)
+    {
+        Velocity = Velocity * 0.8f;
+        MoveAndSlide();
+    }
+    public void ChangeSpeed(byte speed)
+    {
+        if (speed < 10)
+            return;
+        Speed = speed;
+    }
+    public void Move(bool directionUp)
+    {
+        Velocity = directionUp ? new Vector2(0, -Speed) : new Vector2(0, Speed);
     }
     public void Resize(byte size)
     {

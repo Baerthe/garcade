@@ -1,7 +1,7 @@
 namespace pong;
 
 using Godot;
-public partial class PaddleAI : IController
+public class PaddleAI : IController
 {
     
 }
