@@ -12,31 +12,22 @@ public partial class Main : Node2D
     [Export] public bool DebugMode {get; private set; } = false;
     [ExportGroup("References")]
     [Export] public Timer GameTimer {get; private set; }
-    [Export] public Paddle PaddleP1
-    {
-        get => _paddle1 as Paddle;
-        private set => _paddle1 = value;
-    }
-    [Export] public Paddle PaddleP2
-    {
-        get => _paddle2 as Paddle;
-        private set => _paddle2 = value;
-    }
+    [Export] public Paddle PaddleP1 { get; private set; }
+    [Export] public Paddle PaddleP2 { get; private set; }
     [Export] public Node2D StartPosP1 {get; private set; }
     [Export] public Node2D StartPosP2 {get; private set; }
     private IController _controller1;
     private IController _controller2;
-    private IPaddle _paddle1;
-    private IPaddle _paddle2;
 
     public override void _Ready()
     {
-        GameStart();
+        PaddleP1.InjectData(StartPosP1);
+        PaddleP2.InjectData(StartPosP2);
         if (DebugMode)
         {
             GD.PrintS("Pong Main Ready - Debug Mode Enabled");
             _controller1 = new PaddlePlayer(PaddleP1);
-            //_controller2 = new PaddlePlayer(PaddleP2);
+            _controller2 = new PaddleAI(PaddleP2);
         }
     }
 
@@ -47,13 +38,11 @@ public partial class Main : Node2D
     }
     private void GameReset()
     {
-        _paddle1.ResetPosition();
-        _paddle2.ResetPosition();
+        PaddleP1.ResetPosition();
+        PaddleP2.ResetPosition();
     }
     private void GameStart()
     {
-        _paddle1.InjectData(StartPosP1);
-        _paddle2.InjectData(StartPosP2);
         GameReset();
     }
 }

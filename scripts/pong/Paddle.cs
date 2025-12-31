@@ -1,7 +1,7 @@
 namespace pong;
 
 using Godot;
-public sealed partial class Paddle : CharacterBody2D, IPaddle
+public sealed partial class Paddle : CharacterBody2D
 {
     public byte Speed { get; private set; } = 200;
     public byte Size { get; private set; } = 3;
@@ -22,9 +22,9 @@ public sealed partial class Paddle : CharacterBody2D, IPaddle
             return;
         Speed = speed;
     }
-    public void Move(bool directionUp)
+    public void Move(Direction direction)
     {
-        Velocity = directionUp ? new Vector2(0, -Speed) : new Vector2(0, Speed);
+        Velocity = direction == Direction.Up ? new Vector2(0, -Speed) : new Vector2(0, Speed);
     }
     public void Resize(byte size)
     {
