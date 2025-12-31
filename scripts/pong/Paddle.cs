@@ -1,5 +1,6 @@
 namespace pong;
 
+using System.Diagnostics;
 using Godot;
 public sealed partial class Paddle : CharacterBody2D
 {
@@ -10,9 +11,12 @@ public sealed partial class Paddle : CharacterBody2D
     public override void _Ready()
     {
         _collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+        _initialPosition = GlobalPosition;
     }
     public override void _PhysicsProcess(double delta)
     {
+        if (Velocity == Vector2.Zero)
+            return;
         Velocity = Velocity * 0.8f;
         MoveAndSlide();
     }
@@ -34,11 +38,7 @@ public sealed partial class Paddle : CharacterBody2D
     }
     public void ResetPosition()
     {
+        Velocity = Vector2.Zero;
         GlobalPosition = _initialPosition;
-    }
-    public void InjectData(Node2D startPos)
-    {
-        GlobalPosition = startPos.GlobalPosition;
-        _initialPosition = GlobalPosition;
     }
 }

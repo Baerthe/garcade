@@ -14,15 +14,11 @@ public partial class Main : Node2D
     [Export] public Timer GameTimer {get; private set; }
     [Export] public Paddle PaddleP1 { get; private set; }
     [Export] public Paddle PaddleP2 { get; private set; }
-    [Export] public Node2D StartPosP1 {get; private set; }
-    [Export] public Node2D StartPosP2 {get; private set; }
     private IController _controller1;
     private IController _controller2;
 
     public override void _Ready()
     {
-        PaddleP1.InjectData(StartPosP1);
-        PaddleP2.InjectData(StartPosP2);
         if (DebugMode)
         {
             GD.PrintS("Pong Main Ready - Debug Mode Enabled");
