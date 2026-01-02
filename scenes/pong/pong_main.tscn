@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnvht5v51wkfj"]
+
+[ext_resource type="Script" uid="uid://ldf13dgujunn" path="res://scripts/pong/Main.cs" id="1_242ye"]
+[ext_resource type="PackedScene" uid="uid://d0744oosad0d3" path="res://scenes/pong/prefab_paddle.tscn" id="2_242ye"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_242ye"]
+a = Vector2(-20, 0)
+b = Vector2(660, 0)
+
+[node name="PongMain" type="Node2D" node_paths=PackedStringArray("GameTimer", "PaddleP1")]
+script = ExtResource("1_242ye")
+DebugMode = true
+GameTimer = NodePath("Timer")
+PaddleP1 = NodePath("Paddle1")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Background" type="ColorRect" parent="World"]
+offset_right = 640.0
+offset_bottom = 480.0
+color = Color(0, 0, 0, 1)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World"]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/StaticBody2D"]
+position = Vector2(0, -4)
+shape = SubResource("SegmentShape2D_242ye")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="World"]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/StaticBody2D2"]
+position = Vector2(0, 483)
+shape = SubResource("SegmentShape2D_242ye")
+
+[node name="Paddle1" parent="." instance=ExtResource("2_242ye")]
+position = Vector2(0, 240)
+
+[node name="Paddle2" parent="." instance=ExtResource("2_242ye")]
+position = Vector2(640, 240)

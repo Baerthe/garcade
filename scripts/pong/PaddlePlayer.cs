@@ -10,6 +10,7 @@ public class PaddlePlayer : IController
     {
         _isPlayer1 = isPlayer1;
         Paddle = paddle;
+        GD.Print($"PaddlePlayer created for {(_isPlayer1 ? "Player 1" : "Player 2")}");
     }
     public Direction GetInputDirection()
     {

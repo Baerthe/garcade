@@ -2,27 +2,37 @@ namespace pong;
 
 using System.Diagnostics;
 using Godot;
+[GlobalClass]
 public sealed partial class Paddle : CharacterBody2D
 {
-    public byte Speed { get; private set; } = 200;
-    public byte Size { get; private set; } = 3;
+    [ExportGroup("Properties")]
+    [Export(PropertyHint.Range, "1,100")] public byte Friction { get; private set; } = 25;
+    [Export(PropertyHint.Range, "100,10000")] public uint Speed { get; private set; } = 2000;
+    [Export(PropertyHint.Range, "1,255")] public byte Size { get; private set; } = 64;
     private CollisionShape2D _collisionShape;
+    private ColorRect _colorRect;
+    private float _fixedFriction;
     private Vector2 _initialPosition;
     public override void _Ready()
     {
         _collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+        _colorRect = GetNode<ColorRect>("ColorRect");
+        _collisionShape.Shape = new RectangleShape2D() { Size = new Vector2(24, Size) };
+        _colorRect.Size = new Vector2(24, Size);
+        _colorRect.Position = new Vector2(-12, -Size / 2);
         _initialPosition = GlobalPosition;
+        _fixedFriction = 1.0f / (Friction / 15.0f);
     }
     public override void _PhysicsProcess(double delta)
     {
         if (Velocity == Vector2.Zero)
             return;
-        Velocity = Velocity * 0.8f;
-        MoveAndSlide();
+        Velocity = Velocity * _fixedFriction;
+        MoveAndCollide(Velocity * (float)delta);
     }
-    public void ChangeSpeed(byte speed)
+    public void ChangeSpeed(uint speed)
     {
-        if (speed < 10)
+        if (speed < 100 || speed > 10000)
             return;
         Speed = speed;
     }
@@ -32,9 +42,10 @@ public sealed partial class Paddle : CharacterBody2D
     }
     public void Resize(byte size)
     {
-        if (size < 1 || size > 100)
-            return;
         Size = size;
+        _collisionShape.Shape = new RectangleShape2D() { Size = new Vector2(24, Size) };
+        _colorRect.Size = new Vector2(24, Size);
+        _colorRect.Position = new Vector2(-12, -Size / 2);
     }
     public void ResetPosition()
     {

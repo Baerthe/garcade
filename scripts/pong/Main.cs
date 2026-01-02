@@ -26,6 +26,11 @@ public partial class Main : Node2D
             _controller2 = new PaddleAI(PaddleP2);
         }
     }
+    public override void _Process(double delta)
+    {
+        _controller1.Update();
+        _controller2.Update();
+    }
 
     // -> Game State Functions
     private void GameOver()
