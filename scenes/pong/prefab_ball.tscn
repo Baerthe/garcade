@@ -1,12 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://rd5g3vdir2e2"]
+[gd_scene load_steps=8 format=3 uid="uid://rd5g3vdir2e2"]
 
 [ext_resource type="Script" uid="uid://dgbhun6vlrb4i" path="res://scripts/pong/Ball.cs" id="1_68cmp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_68cmp"]
 
+[sub_resource type="Curve" id="Curve_35srh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_q74i4"]
+width = 1024
+curve = SubResource("Curve_35srh")
+
+[sub_resource type="Curve" id="Curve_68cmp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_35srh"]
+width = 36
+curve = SubResource("Curve_68cmp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_35srh"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_max = 0.0
+scale_curve = SubResource("CurveTexture_35srh")
+color = Color(1.3528494, 1.3528494, 1.3528494, 0.9411765)
+alpha_curve = SubResource("CurveTexture_q74i4")
+
 [node name="PrefabBall" type="CharacterBody2D"]
 collision_mask = 3
 script = ExtResource("1_68cmp")
+Acceleration = 10
+Size = 32
 metadata/_custom_type_script = "uid://dgbhun6vlrb4i"
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -27,3 +56,10 @@ grow_vertical = 2
 shape = SubResource("CircleShape2D_68cmp")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 1024
+speed_scale = 1.5
+draw_order = 0
+trail_lifetime = 1.8
+process_material = SubResource("ParticleProcessMaterial_35srh")

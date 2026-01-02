@@ -14,6 +14,7 @@ public partial class Main : Node2D
     [Export] public Timer GameTimer {get; private set; }
     [Export] public Paddle PaddleP1 { get; private set; }
     [Export] public Paddle PaddleP2 { get; private set; }
+    [Export] public Ball Ball { get; private set; }
     private IController _controller1;
     private IController _controller2;
 
@@ -22,7 +23,7 @@ public partial class Main : Node2D
         if (DebugMode)
         {
             GD.PrintS("Pong Main Ready - Debug Mode Enabled");
-            _controller1 = new PaddlePlayer(PaddleP1);
+            _controller1 = new PaddleAI(PaddleP1);
             _controller2 = new PaddleAI(PaddleP2);
         }
     }

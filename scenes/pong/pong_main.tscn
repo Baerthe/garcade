@@ -8,11 +8,13 @@
 a = Vector2(-20, 0)
 b = Vector2(660, 0)
 
-[node name="PongMain" type="Node2D" node_paths=PackedStringArray("GameTimer", "PaddleP1")]
+[node name="PongMain" type="Node2D" node_paths=PackedStringArray("GameTimer", "PaddleP1", "PaddleP2", "Ball")]
 script = ExtResource("1_242ye")
 DebugMode = true
 GameTimer = NodePath("Timer")
 PaddleP1 = NodePath("Paddle1")
+PaddleP2 = NodePath("Paddle2")
+Ball = NodePath("PrefabBall")
 
 [node name="Timer" type="Timer" parent="."]
 

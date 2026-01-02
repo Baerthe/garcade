@@ -21,10 +21,4 @@ public class PaddlePlayer : IController
             direction = Direction.Down;
         return direction;
     }
-    public void Update()
-    {
-        if (GetInputDirection() == Direction.None)
-            return;
-        Paddle.Move(GetInputDirection());
-    }
 }

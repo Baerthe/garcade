@@ -5,5 +5,10 @@ public interface IController
 {
     Paddle Paddle {get; }
     Direction GetInputDirection();
-    void Update();
+    public void Update()
+    {
+        if (GetInputDirection() == Direction.None)
+            return;
+        Paddle.Move(GetInputDirection());
+    }
 }
