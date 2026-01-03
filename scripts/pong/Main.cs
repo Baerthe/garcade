@@ -28,7 +28,6 @@ public partial class Main : Node2D
         _scoreP1 = new Score(ScoreP1Label);
         _scoreP2 = new Score(ScoreP2Label);
         Menu.OnGameStart += GameStart;
-        Menu.OnControllersSelected += OnControllersSelected;
     }
     public override void _Process(double delta)
     {
@@ -48,14 +47,7 @@ public partial class Main : Node2D
         PaddleP1.ResetPosition();
         PaddleP2.ResetPosition();
     }
-    private void GameStart()
-    {
-        GameReset();
-
-        Ball.ToggleEnable();
-        _isGameOver = false;
-    }
-    private void OnControllersSelected(PlayerType player1Type, PlayerType player2Type)
+    private void GameStart(PlayerType player1Type, PlayerType player2Type, int ballSize)
     {
         _controller1 = player1Type switch
         {
@@ -72,5 +64,9 @@ public partial class Main : Node2D
             PlayerType.AI => new PaddleAI(PaddleP2, _scoreP2, false),
             _ => throw new ArgumentOutOfRangeException(nameof(player2Type), "Invalid player type")
         };
+        GameReset();
+        Ball.AdjustSize((byte)ballSize);
+        Ball.ToggleEnable();
+        _isGameOver = false;
     }
 }

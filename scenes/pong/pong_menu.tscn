@@ -7,7 +7,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_l1anq"]
 font_size = 36
 
-[node name="PongMenu" type="Control" node_paths=PackedStringArray("_buttonPlay", "_OptionPaddle1", "_OptionPaddle2")]
+[node name="PongMenu" type="Control" node_paths=PackedStringArray("_buttonPlay", "_optionPaddle1", "_optionPaddle2", "_sliderBall", "_labelBallSpeed")]
 top_level = true
 z_index = 255
 texture_filter = 1
@@ -16,8 +16,10 @@ anchors_preset = 0
 theme = ExtResource("1_q33qw")
 script = ExtResource("1_wut2e")
 _buttonPlay = NodePath("ButtonPlay")
-_OptionPaddle1 = NodePath("OptionPaddle1")
-_OptionPaddle2 = NodePath("OptionPaddle2")
+_optionPaddle1 = NodePath("OptionPaddle1")
+_optionPaddle2 = NodePath("OptionPaddle2")
+_sliderBall = NodePath("SliderBall")
+_labelBallSpeed = NodePath("LabelBall")
 
 [node name="Background" type="ColorRect" parent="."]
 z_index = -20
@@ -34,6 +36,12 @@ offset_right = 272.0
 offset_bottom = 480.0
 color = Color(0.39118537, 0.39118534, 0.39118534, 1)
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = 61.0
+offset_right = 640.0
+offset_bottom = 65.0
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_right = 640.0
@@ -47,7 +55,7 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 72.0
 offset_top = 72.0
-offset_right = 200.0
+offset_right = 256.0
 offset_bottom = 96.0
 text = "Paddle 1"
 horizontal_alignment = 1
@@ -57,17 +65,11 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 72.0
 offset_top = 136.0
-offset_right = 200.0
+offset_right = 256.0
 offset_bottom = 160.0
 text = "Paddle 2"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_top = 61.0
-offset_right = 640.0
-offset_bottom = 65.0
 
 [node name="ButtonPlay" type="Button" parent="."]
 layout_mode = 0
@@ -118,3 +120,39 @@ popup/item_1/text = "Player 2"
 popup/item_1/id = 1
 popup/item_2/text = "AI"
 popup/item_2/id = 2
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 256.0
+offset_right = 256.0
+offset_bottom = 280.0
+text = "Ball Size"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelBall" type="Label" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 272.0
+offset_right = 270.0
+offset_bottom = 304.0
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+autowrap_trim_flags = 0
+justification_flags = 128
+
+[node name="SliderBall" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 280.0
+offset_right = 232.0
+offset_bottom = 296.0
+min_value = 8.0
+max_value = 32.0
+value = 16.0
+rounded = true
+tick_count = 24
+ticks_on_borders = true
