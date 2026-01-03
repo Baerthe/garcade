@@ -10,6 +10,7 @@ public partial class Main : Node2D
     [ExportGroup("Debug")]
     [Export] public bool DebugMode {get; private set; } = false;
     [ExportGroup("References")]
+    [Export] public Menu Menu { get; private set; }
     [Export] public Timer GameTimer {get; private set; }
     [Export] public Paddle PaddleP1 { get; private set; }
     [Export] public Paddle PaddleP2 { get; private set; }
@@ -17,6 +18,7 @@ public partial class Main : Node2D
     [ExportGroup("HUD Properties")]
     [Export] public Label ScoreP1Label { get; private set; }
     [Export] public Label ScoreP2Label { get; private set; }
+    private bool _isGameOver = true;
     private IController _controller1;
     private IController _controller2;
     private Score _scoreP1;
@@ -26,6 +28,7 @@ public partial class Main : Node2D
     {
         _scoreP1 = new Score(ScoreP1Label);
         _scoreP2 = new Score(ScoreP2Label);
+        Menu.OnGameStart += GameStart;
         if (DebugMode)
         {
             GD.PrintS("Pong Main Ready - Debug Mode Enabled");
@@ -35,6 +38,8 @@ public partial class Main : Node2D
     }
     public override void _Process(double delta)
     {
+        if (_isGameOver)
+            return;
         _controller1.Update();
         _controller2.Update();
     }
@@ -52,5 +57,7 @@ public partial class Main : Node2D
     private void GameStart()
     {
         GameReset();
+        Ball.ToggleEnable();
+        _isGameOver = false;
     }
 }

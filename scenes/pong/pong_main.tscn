@@ -1,17 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://bnvht5v51wkfj"]
+[gd_scene load_steps=7 format=3 uid="uid://bnvht5v51wkfj"]
 
 [ext_resource type="Script" uid="uid://ldf13dgujunn" path="res://scripts/pong/Main.cs" id="1_242ye"]
 [ext_resource type="PackedScene" uid="uid://d0744oosad0d3" path="res://scenes/pong/prefab_paddle.tscn" id="2_242ye"]
 [ext_resource type="PackedScene" uid="uid://rd5g3vdir2e2" path="res://scenes/pong/prefab_ball.tscn" id="3_wwidt"]
 [ext_resource type="Theme" uid="uid://c5b38epkeox6b" path="res://assets/themes/pong_main.tres" id="4_ufty6"]
+[ext_resource type="PackedScene" uid="uid://o4bhpha3fwb4" path="res://scenes/pong/pong_menu.tscn" id="5_pja5u"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_242ye"]
 a = Vector2(-20, 0)
 b = Vector2(660, 0)
 
-[node name="PongMain" type="Node2D" node_paths=PackedStringArray("GameTimer", "PaddleP1", "PaddleP2", "Ball", "ScoreP1Label", "ScoreP2Label")]
+[node name="PongMain" type="Node2D" node_paths=PackedStringArray("Menu", "GameTimer", "PaddleP1", "PaddleP2", "Ball", "ScoreP1Label", "ScoreP2Label")]
 script = ExtResource("1_242ye")
 DebugMode = true
+Menu = NodePath("PongMenu")
 GameTimer = NodePath("Timer")
 PaddleP1 = NodePath("Paddle1")
 PaddleP2 = NodePath("Paddle2")
@@ -112,3 +114,5 @@ layout_mode = 0
 offset_top = 21.0
 offset_right = 640.0
 offset_bottom = 25.0
+
+[node name="PongMenu" parent="." instance=ExtResource("5_pja5u")]
