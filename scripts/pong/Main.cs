@@ -1,14 +1,13 @@
 namespace pong;
 
 using Godot;
+using System;
 /// <summary>
 /// Main game controller for Pong game. Pong is a pretty simple game, so we will have Main being the controller and orchestrator of the game.
 /// It will manage the paddles and the ball, and handle the game logic.
 /// </summary>
 public partial class Main : Node2D
 {
-    [ExportGroup("Debug")]
-    [Export] public bool DebugMode {get; private set; } = false;
     [ExportGroup("References")]
     [Export] public Menu Menu { get; private set; }
     [Export] public Timer GameTimer {get; private set; }
@@ -29,12 +28,7 @@ public partial class Main : Node2D
         _scoreP1 = new Score(ScoreP1Label);
         _scoreP2 = new Score(ScoreP2Label);
         Menu.OnGameStart += GameStart;
-        if (DebugMode)
-        {
-            GD.PrintS("Pong Main Ready - Debug Mode Enabled");
-            _controller1 = new PaddleAI(PaddleP1, _scoreP1, true);
-            _controller2 = new PaddleAI(PaddleP2, _scoreP2, false);
-        }
+        Menu.OnControllersSelected += OnControllersSelected;
     }
     public override void _Process(double delta)
     {
@@ -57,7 +51,26 @@ public partial class Main : Node2D
     private void GameStart()
     {
         GameReset();
+
         Ball.ToggleEnable();
         _isGameOver = false;
+    }
+    private void OnControllersSelected(PlayerType player1Type, PlayerType player2Type)
+    {
+        _controller1 = player1Type switch
+        {
+            PlayerType.Player1 => new PaddlePlayer(PaddleP1, _scoreP1, true),
+            PlayerType.Player2 => new PaddlePlayer(PaddleP1, _scoreP2, false),
+            PlayerType.AI => new PaddleAI(PaddleP1, _scoreP1, true),
+            _ => throw new ArgumentOutOfRangeException(nameof(player1Type), "Invalid player type")
+        };
+
+        _controller2 = player2Type switch
+        {
+            PlayerType.Player1 => new PaddlePlayer(PaddleP2, _scoreP1, true),
+            PlayerType.Player2 => new PaddlePlayer(PaddleP2, _scoreP2, false),
+            PlayerType.AI => new PaddleAI(PaddleP2, _scoreP2, false),
+            _ => throw new ArgumentOutOfRangeException(nameof(player2Type), "Invalid player type")
+        };
     }
 }
