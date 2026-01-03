@@ -1,9 +1,11 @@
 namespace pong;
 
+using System;
 using Godot;
 [GlobalClass]
 public sealed partial class Ball : CharacterBody2D
 {
+    public event Action<bool> OnOutOfBounds;
     [ExportGroup("Properties")]
     [Export(PropertyHint.Range, "1,100")] public byte Acceleration { get; private set; } = 25;
     [Export(PropertyHint.Range, "1,100")] public byte Size { get; private set; } = 8;
@@ -47,6 +49,10 @@ public sealed partial class Ball : CharacterBody2D
     }
     private void ResetBall()
     {
+        if (GlobalPosition.X < 0)
+            OnOutOfBounds?.Invoke(false);
+        else
+            OnOutOfBounds?.Invoke(true);
         Velocity = Vector2.Zero;
         GlobalPosition = _initialPosition;
         _speedFactor = 0.05f;

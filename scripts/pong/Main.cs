@@ -15,16 +15,23 @@ public partial class Main : Node2D
     [Export] public Paddle PaddleP1 { get; private set; }
     [Export] public Paddle PaddleP2 { get; private set; }
     [Export] public Ball Ball { get; private set; }
+    [ExportGroup("HUD Properties")]
+    [Export] public Label ScoreP1Label { get; private set; }
+    [Export] public Label ScoreP2Label { get; private set; }
     private IController _controller1;
     private IController _controller2;
+    private Score _scoreP1;
+    private Score _scoreP2;
 
     public override void _Ready()
     {
+        _scoreP1 = new Score(ScoreP1Label);
+        _scoreP2 = new Score(ScoreP2Label);
         if (DebugMode)
         {
             GD.PrintS("Pong Main Ready - Debug Mode Enabled");
-            _controller1 = new PaddleAI(PaddleP1);
-            _controller2 = new PaddleAI(PaddleP2);
+            _controller1 = new PaddleAI(PaddleP1, _scoreP1, true);
+            _controller2 = new PaddleAI(PaddleP2, _scoreP2, false);
         }
     }
     public override void _Process(double delta)
