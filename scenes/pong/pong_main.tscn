@@ -24,6 +24,7 @@ ScoreP2Label = NodePath("HUD/P2Score")
 [node name="World" type="Node2D" parent="."]
 
 [node name="Background" type="ColorRect" parent="World"]
+z_index = -20
 offset_right = 640.0
 offset_bottom = 480.0
 color = Color(0, 0, 0, 1)
@@ -105,3 +106,9 @@ text = "00000000"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+layout_mode = 0
+offset_top = 21.0
+offset_right = 640.0
+offset_bottom = 25.0

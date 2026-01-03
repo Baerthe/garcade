@@ -1,7 +1,6 @@
 namespace pong;
 
 using Godot;
-using System;
 public sealed class Score
 {
     private Label _scoreLabel;
@@ -15,6 +14,11 @@ public sealed class Score
     public void AddPoint()
     {
         _points++;
+        UpdateLabel();
+    }
+    public void Reset()
+    {
+        _points = 0;
         UpdateLabel();
     }
     private void UpdateLabel()

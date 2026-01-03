@@ -7,8 +7,11 @@ public sealed partial class Ball : CharacterBody2D
 {
     public event Action<bool> OnOutOfBounds;
     [ExportGroup("Properties")]
+    [Export] AudioStream AudioHit;
+    [Export] AudioStream AudioScore;
     [Export(PropertyHint.Range, "1,100")] public byte Acceleration { get; private set; } = 25;
     [Export(PropertyHint.Range, "1,100")] public byte Size { get; private set; } = 8;
+    private AudioStreamPlayer2D _audioPlayer;
     private CollisionShape2D _collisionShape;
     private ColorRect _colorRect;
     private GpuParticles2D _trailParticles;
@@ -17,6 +20,7 @@ public sealed partial class Ball : CharacterBody2D
     private float _speedFactor;
     public override void _Ready()
     {
+        _audioPlayer = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
         _collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
         _colorRect = GetNode<ColorRect>("ColorRect");
         _trailParticles = GetNode<GpuParticles2D>("GPUParticles2D");
@@ -37,6 +41,8 @@ public sealed partial class Ball : CharacterBody2D
         var collision = MoveAndCollide(Velocity * (float)delta * _speedFactor);
         if (collision != null)
         {
+            _audioPlayer.Stream = AudioHit;
+            _audioPlayer.Play();
             var normal = collision.GetNormal();
             Velocity = Velocity.Bounce(normal);
             _speedFactor += _speedFactor * (Acceleration / 200.0f);
@@ -50,9 +56,17 @@ public sealed partial class Ball : CharacterBody2D
     private void ResetBall()
     {
         if (GlobalPosition.X < 0)
+        {
+            _audioPlayer.Stream = AudioScore;
+            _audioPlayer.Play();
             OnOutOfBounds?.Invoke(false);
+        }
         else
+        {
+            _audioPlayer.Stream = AudioScore;
+            _audioPlayer.Play();
             OnOutOfBounds?.Invoke(true);
+        }
         Velocity = Vector2.Zero;
         GlobalPosition = _initialPosition;
         _speedFactor = 0.05f;
